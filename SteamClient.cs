@@ -175,13 +175,13 @@ public class SteamClient
     }
 
     /// <summary>
-    /// Starts the specified App ID.
+    /// Runs the specified App ID.
     /// </summary>
     /// <param name="gameId">App ID of the app to run.</param>
     /// <returns>
     /// If the operation was successful true is returned else false.
     /// </returns>
-    public static bool StartGameId(string gameId)
+    public static bool RunGameId(string gameId)
     {
         if (FindWindow("vguiPopupWindow", "SteamClient") == IntPtr.Zero)
             return false;

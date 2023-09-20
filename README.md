@@ -46,3 +46,8 @@ Disables or enables the Steam WebHelper for a Steam Client instance.
 
 The method returns `true` if a Steam Client instance invoked by `SteamClient.Launch()` is running else `false`.
 
+##### `SteamClient.StartGameId(string gameId)`
+Runs the specified App ID.<br>
+The method will block the invoking thread until the the app is terminated, so its best to use this method in a thread of its own.<br>
+The method returns `true` if a Steam Client instance invoked by `SteamClient.Launch()` is running else `false`.
+

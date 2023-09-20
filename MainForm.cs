@@ -108,7 +108,7 @@ public class MainForm : Form
                 listView.Enabled = false;
                 button.Enabled = false;
                 button.Text = "Running";
-                SteamClient.StartGameId(apps[appName]);
+                SteamClient.RunGameId(apps[appName]);
                 button.Text = "Play";
                 listView.Enabled = true;
                 button.Enabled = true;
