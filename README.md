@@ -12,7 +12,7 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 2. Once the new Steam Client instance is running, the Steam WebHelper is disabled to save on resources or to make it minimal.
 3. To launch a game, the program calls `SteamClient.LaunchGameId(gameId)`, the method re-enables the Steam WebHelper, waits for the app to launch and then suspends the WebHelper again.
 > [!NOTE]
-> The frontend restricts the user to only launching a single app.
+> The frontend restricts the user to only launching a single app.<br>
 > Technically the `SteamClient` class, allows you to launch multiple apps but blocks the invoking thread until the app terminates.
 
 ## Developer Resources
