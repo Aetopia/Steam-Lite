@@ -4,7 +4,7 @@ A minimal Steam Client frontend.
 > This is an alternative **frontend** not **Client**.<br>
 > Meaning, the project simply serves as a way to interact with a running Steam Client instance.<br>
 > Currently there is only Windows support due to the way, the project works.<br>
-> The future other platforms might be also supported if possible.<br>
+> In the future, other platforms might be also supported if possible.<br>
 
 ## Usage
 1. Download the latest release from GitHub Releases.
