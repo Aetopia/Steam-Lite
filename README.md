@@ -1,7 +1,7 @@
 # Steam Lite
 A minimal Steam Client frontend.
 > [!IMPORTANT]
-> This is an alternative **frontend** not **Client**.
+> This is an alternative **frontend** not **Client**.<br>
 > Meaning, the project simply serves as a way to interact with a running Steam Client instance.
 
 ## Usage
