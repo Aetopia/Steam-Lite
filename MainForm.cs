@@ -14,8 +14,7 @@ public class MainForm : Form
             View = View.Details,
             Dock = DockStyle.Fill,
             HeaderStyle = ColumnHeaderStyle.None,
-            MultiSelect = false,
-
+            MultiSelect = false
         };
         NotifyIcon notifyIcon = new() { Text = "Steam Lite", Icon = Icon, Visible = true };
         Dictionary<string, string> apps = SteamClient.GetApps();
