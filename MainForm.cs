@@ -8,6 +8,8 @@ public class MainForm : Form
 {
     public MainForm(bool silent = false)
     {
+        Text = "Steam Lite";
+        Font = SystemFonts.MessageBoxFont;
         ListView listView = new()
         {
             BorderStyle = BorderStyle.Fixed3D,
@@ -28,8 +30,7 @@ public class MainForm : Form
            AnchorStyles.Right,
             Enabled = false
         };
-        Text = "Steam Lite";
-        Font = SystemFonts.MessageBoxFont;
+
 
         tableLayoutPanel.Controls.Add(listView, 0, 0);
         tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
@@ -72,18 +73,19 @@ public class MainForm : Form
 
         listView.SelectedIndexChanged += (sender, e) => button.Enabled = listView.Enabled && listView.SelectedItems.Count != 0;
         listView.ItemActivate += (sender, e) => button.PerformClick();
-        //   button.Enabled = true;
         button.Click += (sender, e) => new Thread(() =>
         {
             if (listView.SelectedItems.Count != 0)
             {
-             //   string appName = listView.SelectedItems[0].Text;
                 WindowState = FormWindowState.Minimized;
+
                 listView.Enabled = false;
                 button.Enabled = false;
+                Text = notifyIcon.Text = $"Steam Lite - {listView.SelectedItems[0].Text}";
                 button.Text = "Running";
                 SteamClient.RunGameId(apps[listView.SelectedItems[0].Text]);
                 button.Text = "Play";
+                Text = notifyIcon.Text = "Steam Lite";
                 listView.Enabled = true;
                 button.Enabled = true;
                 listView.SelectedItems[0].Selected = false;
