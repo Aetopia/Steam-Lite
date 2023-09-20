@@ -23,6 +23,10 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 > [!NOTE]
 > The frontend restricts the user to only launching a single app.<br>
 > Technically the `SteamClient` class, allows you to launch multiple apps but blocks the invoking thread until the app terminates.
+#### Why not use `SteamCMD`?
+That's a good question, I actually decided to avoid SteamCMD since:<br>
+- Steam dumps and writes useful information to the following registry key `HKEY_CURRENT_USER\SOFTWARE\Valve\Steam`.
+- Considering what information is required by the `SteamClient` class using SteamCMD is not required.
 
 ### Features
 - Ability to launch Steam games with directly using a Steam Client instance.
