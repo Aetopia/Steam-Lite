@@ -19,7 +19,7 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 - Ability to launch Steam games with directly using a Steam Client instance.
 - Ability to minimize to the tray.<br>
     > [!NOTE]
-    > The program will always minimize to the tray if a game is launched.
+    > The program will always minimize to the tray if an app is launched.
 - Doesn't require the Steam WebHelper.<br>
     > [!NOTE]
     > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.<br>
