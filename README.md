@@ -15,6 +15,21 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 > The frontend restricts the user to only launching a single app.<br>
 > Technically the `SteamClient` class, allows you to launch multiple apps but blocks the invoking thread until the app terminates.
 
+### Features
+- Ability to launch Steam games with directly using a Steam Client instance.
+- Ability to minimize to the tray.
+    > [!NOTE]
+    > The program will always minimize to the tray if a game is launched.
+- Doesn't require the Steam WebHelper.
+    > [!NOTE]
+    > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.
+    > If you would like to implement your own methods to invoke specific Steam Client actions make sure to surround the method with `SteamClient.WebHelper(bool enable)`.
+    > ```cs
+    SteamClient.WebHelper(true);
+    YourMethod();
+    SteamClient.WebHelper(false);
+    ```
+
 ### [`SteamClient` class](https://github.com/Aetopia/Steam-Lite/blob/main/SteamClient.cs)
 The `SteamClient` provides methods for interacting with a Steam Client instance.
 
