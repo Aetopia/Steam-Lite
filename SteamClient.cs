@@ -70,7 +70,7 @@ public class SteamClient
     /// <summary>
     /// Obtain a running Steam client instance.
     /// </summary>
-    /// <returns>Any currently running Steam Client instance.</returns>
+    /// <returns>Any currently running Steam Client instance, null if no instance is running.</returns>
     public static Process GetInstance()
     {
         if (GetWindowThreadProcessId(FindWindow("vguiPopupWindow", "SteamClient"), out uint dwProcessId) != 0)
@@ -79,7 +79,7 @@ public class SteamClient
     }
 
     /// <summary>
-    /// Obtains installed Steam applications with their App ID and names.
+    /// Obtains installed Steam applications with their App ID and name.
     /// </summary>
     /// <returns>
     /// A dictionary of installed Steam applications.
@@ -88,13 +88,16 @@ public class SteamClient
     {
         Dictionary<string, string> apps = [];
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam\\Apps");
-        string[] subKeyNames = registryKey.GetSubKeyNames();
-        for (int i = 0; i < subKeyNames.Length; i++)
+        if (registryKey != null)
         {
-            using RegistryKey subKey = registryKey.OpenSubKey(subKeyNames[i]);
-            if ((int)subKey.GetValue("Installed", 0) == 1 &&
-                subKey.GetValueNames().Contains("Name"))
-                apps[subKey.GetValue("Name").ToString()] = subKeyNames[i];
+            string[] subKeyNames = registryKey.GetSubKeyNames();
+            for (int i = 0; i < subKeyNames.Length; i++)
+            {
+                using RegistryKey subKey = registryKey.OpenSubKey(subKeyNames[i]);
+                if ((int)subKey.GetValue("Installed", 0) == 1 &&
+                    subKey.GetValueNames().Contains("Name"))
+                    apps[subKey.GetValue("Name").ToString()] = subKeyNames[i];
+            }
         }
         return apps;
     }
@@ -128,6 +131,21 @@ public class SteamClient
         WebHelper(false);
 
         return process;
+    }
+
+    /// <summary>
+    /// Uninitializes the current running Steam Client instance.
+    /// </summary>
+    /// <returns>If the operation was successful true is returned else false.</returns>
+    public static bool Shutdown()
+    {
+        if (FindWindow("vguiPopupWindow", "SteamClient") != IntPtr.Zero)
+        {
+            WebHelper(true);
+            using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam");
+            Process.Start(registryKey.GetValue("SteamExe").ToString(), "-shutdown").Dispose();
+        }
+        return true;
     }
 
     /// <summary>
