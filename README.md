@@ -2,7 +2,9 @@
 A minimal Steam Client frontend.
 > [!IMPORTANT]
 > This is an alternative **frontend** not **Client**.<br>
-> Meaning, the project simply serves as a way to interact with a running Steam Client instance.
+> Meaning, the project simply serves as a way to interact with a running Steam Client instance.<br>
+> Currently there is only Windows support due to the way, the project works.<br>
+> The future other platforms might be also supported if possible.<br>
 
 ## Usage
 1. Download the latest release from GitHub Releases.
@@ -23,7 +25,7 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 > Steam must be running the background to do the following:<br>
 > 1. Allows any Steam DRM based games to be launched.
 > 2. Allows games to use any Steam related services.
- 
+
 1. The program will attempt to invoke `SteamClient.Launch()` and initialize a new Steam Client instance, if an instance of the Steam Client is running, it will be discarded/shutdown.
 2. Once the new Steam Client instance is running, the Steam WebHelper is disabled to save on resources or to make the instance "minimal".
 3. To launch a game, the program calls `SteamClient.LaunchGameId(gameId)`, the method re-enables the Steam WebHelper, waits for the app to launch and then suspends the WebHelper again.
