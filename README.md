@@ -7,6 +7,8 @@ A minimal Steam Client frontend.
 3. To launch an app:<br>
     - Select an app from the list and click the `Play` button to launch it.
     - Double click on the app's name to launch it.
+> [!NOTE]
+> Closing Steam Lite will also close the Steam Client instance it launched automatically.
 
 ## Aim
 This project started with the intention of replacing the entire Steam Client frontend with something similar to the UI of the Steam Client with the CEF disabled.
