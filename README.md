@@ -53,7 +53,7 @@ That's a good question, I actually decided to avoid SteamCMD since:<br>
     >SteamClient.WebHelper(false);
     >```
 
-### [`SteamClient` class Documentation](https://github.com/Aetopia/Steam-Lite/blob/main/SteamClient.cs) 
+### [`SteamClient` class](https://github.com/Aetopia/Steam-Lite/blob/main/SteamClient.cs) Documentation
 The `SteamClient` provides methods for interacting with a Steam Client instance (`"steam.exe"`").
 
 #### Methods
