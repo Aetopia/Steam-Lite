@@ -75,6 +75,9 @@ Obtains installed Steam applications with their App ID and name.<br>
 This methods returns a dictionary contains the App IDs and names.<br>
 The key-value pair is present as follows `{App ID: Name}`.
 
+##### `SteamClient.GetAppsForUser()`
+This method is similar to `SteamClient.GetApps()` except it queries installed applications for the currently signed in user.
+
 ##### `SteamClient.WebHelper(bool enable)`
 Disables or enables the Steam WebHelper for a Steam Client instance.
 |Value of `enable`|Effect|

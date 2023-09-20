@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
+using System.Linq.Expressions;
 
 /// <summary>
 /// Provides methods for interacting with a Steam Client instance.
@@ -172,5 +173,34 @@ public class SteamClient
         WaitForSingleObject(hEvent, 0xffffffff);
         CloseHandle(hEvent);
         return true;
+    }
+
+    /// <summary>
+    /// Obtains installed Steam applications with their App ID and name for the currently signed in user.
+    /// </summary>
+    /// <returns>
+    /// A dictionary of installed Steam applications for the currently signed in user.
+    /// </returns>
+    public static Dictionary<string, string> GetAppsForUser()
+    {
+        Dictionary<string, string> apps = GetApps(), userApps = []; ;
+        using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam");
+        using RegistryKey subKey = registryKey.OpenSubKey("ActiveProcess");
+        string[] lines = File.ReadAllLines($"{registryKey.GetValue("SteamPath")}/userdata/{subKey.GetValue("ActiveUser")}/config/localconfig.vdf");
+        for (int i = 0; i < lines.Length; i++)
+        {
+            try
+            {
+                KeyValuePair<string, string> keyValuePair = new();
+                string line = lines[i].Trim().Trim('"');
+                Convert.ToUInt32(line);
+                keyValuePair = apps.First(source => source.Value == line);
+                userApps.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+            catch (FormatException) { }
+            catch (InvalidOperationException) { }
+
+        }
+        return userApps;
     }
 }
