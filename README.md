@@ -51,3 +51,13 @@ Runs the specified App ID.<br>
 The method will block the invoking thread until the the app is terminated, so its best to use this method in a thread of its own.<br>
 The method returns `true` if a Steam Client instance invoked by `SteamClient.Launch()` is running else `false`.
 
+# Building
+1. Install the follwing:<br>
+    - [.NET SDK](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks)
+    - [.NET Framework 4.8.1 Developer Pack](https://go.microsoft.com/fwlink/?linkid=2203306)
+2. Run the following commands in the repository's root directory to build the project:<br>
+    ```
+    dotnet restore
+    dotnet clean
+    dotnet build --configuration Release
+    ```
