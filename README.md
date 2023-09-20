@@ -1,6 +1,13 @@
 # Steam Lite
 A minimal Steam Client frontend.
 
+## Usage
+1. Download the latest release from GitHub Releases.
+2. Start the program.
+3. To launch an app:<br>
+    - Select an app from the list and click the `Play` button to launch it.
+    - Double click on the app's name to launch it.
+
 ## Aim
 This project started with the intention of replacing the entire Steam Client frontend with something similar to the UI of the Steam Client with the CEF disabled.
 Steam Lite provides a minimal GUI frontend with the ability to launch games.
