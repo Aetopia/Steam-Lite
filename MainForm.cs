@@ -84,8 +84,8 @@ public class MainForm : Form
                 Text = notifyIcon.Text = $"Steam Lite - {listView.SelectedItems[0].Text}";
                 button.Text = "Running";
                 SteamClient.RunGameId(apps[listView.SelectedItems[0].Text]);
-                button.Text = "Play";
                 Text = notifyIcon.Text = "Steam Lite";
+                button.Text = "Play";
                 listView.Enabled = true;
                 button.Enabled = true;
                 listView.SelectedItems[0].Selected = false;
