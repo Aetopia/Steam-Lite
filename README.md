@@ -9,8 +9,6 @@ A minimal Steam Client frontend.
 ## Usage
 1. Download the latest release from [GitHub Releases](https://github.com/Aetopia/Steam-Lite/releases/latest).
 2. Start the program.
-    > [!NOTE]
-    > You may pass `-silent` to the program to start it sliently.
 3. To launch an app:<br>
     - Select an app from the list and click the `Play` button to launch it.
     - Double click on the app's name to launch it.

@@ -18,7 +18,6 @@ public class MainForm : Form
             HeaderStyle = ColumnHeaderStyle.None,
             MultiSelect = false
         };
-        NotifyIcon notifyIcon = new() { Text = "Steam Lite", Icon = Icon, Visible = true };
         Dictionary<string, string> apps = SteamClient.GetAppsForUser();
         TableLayoutPanel tableLayoutPanel = new() { Dock = DockStyle.Fill };
         Button button = new()
@@ -30,7 +29,6 @@ public class MainForm : Form
            AnchorStyles.Right,
             Enabled = false
         };
-
 
         tableLayoutPanel.Controls.Add(listView, 0, 0);
         tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
@@ -46,30 +44,11 @@ public class MainForm : Form
 
         Resize += (sender, e) =>
         {
-            if (WindowState == FormWindowState.Normal)
-            {
-                WindowState = FormWindowState.Maximized;
-                ShowInTaskbar = true;
-            }
-            else if (WindowState == FormWindowState.Minimized)
-                ShowInTaskbar = false;
             listView.Width = listView.ClientSize.Width;
             listView.Columns[0].Width = listView.ClientSize.Width;
         };
 
-        FormClosing += (sender, e) =>
-        {
-            notifyIcon.Visible = false;
-            ShowInTaskbar = false;
-            SteamClient.Shutdown();
-        };
-
-        notifyIcon.DoubleClick += (sender, e) =>
-        {
-            if (WindowState == FormWindowState.Minimized)
-                WindowState = FormWindowState.Normal;
-            Activate();
-        };
+        FormClosed += (sender, e) => SteamClient.Shutdown();
 
         listView.SelectedIndexChanged += (sender, e) => button.Enabled = listView.Enabled && listView.SelectedItems.Count != 0;
         listView.ItemActivate += (sender, e) => button.PerformClick();
@@ -77,24 +56,20 @@ public class MainForm : Form
         {
             if (listView.SelectedItems.Count != 0)
             {
-                WindowState = FormWindowState.Minimized;
-
                 listView.Enabled = false;
                 button.Enabled = false;
-                Text = notifyIcon.Text = $"Steam Lite - {listView.SelectedItems[0].Text}";
+                Text = $"Steam Lite - {listView.SelectedItems[0].Text}";
                 button.Text = "Running";
                 SteamClient.RunGameId(apps[listView.SelectedItems[0].Text]);
-                Text = notifyIcon.Text = "Steam Lite";
+                Text = "Steam Lite";
                 button.Text = "Play";
                 listView.Enabled = true;
                 button.Enabled = true;
                 listView.SelectedItems[0].Selected = false;
             }
         }).Start();
-
-        if (silent)
-            WindowState = FormWindowState.Minimized;
         OnResize(null);
+        CenterToScreen();
     }
 
 

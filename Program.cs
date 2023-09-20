@@ -23,10 +23,10 @@ static class Program
       {
         process.WaitForExit();
         process.Dispose();
-        Environment.Exit(0);
+      //  Environment.Exit(0);
       });
       Application.EnableVisualStyles();
-      Application.Run(new MainForm(silent));
+      Application.Run(new MainForm());
     }
     else
     {
