@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamLite", "SteamLite.csproj", "{4A1CCC5D-0069-4F50-932E-FA4AF13C4912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam-Lite", "Steam-Lite.csproj", "{942C2879-72AD-4215-B4B3-2C8664891027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A1CCC5D-0069-4F50-932E-FA4AF13C4912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A1CCC5D-0069-4F50-932E-FA4AF13C4912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A1CCC5D-0069-4F50-932E-FA4AF13C4912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A1CCC5D-0069-4F50-932E-FA4AF13C4912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942C2879-72AD-4215-B4B3-2C8664891027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942C2879-72AD-4215-B4B3-2C8664891027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942C2879-72AD-4215-B4B3-2C8664891027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942C2879-72AD-4215-B4B3-2C8664891027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0F64C555-3829-4EF6-8AEB-FFE38C0F257C}
+		SolutionGuid = {5B3FFD8F-CB61-486D-913C-4D0A31B107DF}
 	EndGlobalSection
 EndGlobal

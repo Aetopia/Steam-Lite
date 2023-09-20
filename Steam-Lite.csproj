@@ -7,6 +7,5 @@
     <UseWindowsForms>true</UseWindowsForms> 
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 </Project>

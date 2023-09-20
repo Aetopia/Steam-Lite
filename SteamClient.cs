@@ -1,3 +1,27 @@
+/*
+MIT License
+
+Copyright (c) 2023 Aetopia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 using System;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
@@ -6,7 +30,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
-
+using System.IO;
 
 /// <summary>
 /// Provides methods for interacting with a Steam Client instance.
@@ -44,9 +68,22 @@ public class SteamClient
     static extern long RegNotifyChangeKeyValue(SafeRegistryHandle hKey, bool bWatchSubtree, uint dwNotifyFilter, IntPtr hEvent, bool fAsynchronous);
 
     /// <summary>
-    /// Obtains a dictionary of installed Steam applications with their App ID and names.
+    /// Obtain a running Steam client instance.
     /// </summary>
-    /// <returns>Any installed Steam applications.</returns>
+    /// <returns>Any currently running Steam Client instance.</returns>
+    public static Process GetInstance()
+    {
+        if (GetWindowThreadProcessId(FindWindow("vguiPopupWindow", "SteamClient"), out uint dwProcessId) != 0)
+            return Process.GetProcessById((int)dwProcessId);
+        return null;
+    }
+
+    /// <summary>
+    /// Obtains installed Steam applications with their App ID and names.
+    /// </summary>
+    /// <returns>
+    /// A dictionary of installed Steam applications.
+    /// </returns>
     public static Dictionary<string, string> GetApps()
     {
         Dictionary<string, string> apps = [];
@@ -66,14 +103,14 @@ public class SteamClient
     /// Initializes a new Steam Client instance for the class.
     /// </summary>
     /// <returns>
-    /// An instance of the Process class of the launched Steam Client instance or null if a launched instance already exists.
+    /// An instance of the launched Steam Client instance or null if a launched instance already exists or Steam isn't installed.
     /// </returns>
     public static Process Launch()
     {
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam");
         string steamExe = registryKey.GetValue("SteamExe").ToString();
 
-        if (FindWindow("vguiPopupWindow", "SteamClient") != IntPtr.Zero)
+        if (FindWindow("vguiPopupWindow", "SteamClient") != IntPtr.Zero || !File.Exists(steamExe))
             return null;
         Process process;
         if (GetWindowThreadProcessId(FindWindow("vguiPopupWindow", "Untitled"), out uint dwProcessId) != 0)
@@ -93,11 +130,18 @@ public class SteamClient
         return process;
     }
 
-    public static void WebHelper(bool enable)
+    /// <summary>
+    /// Disables or enables the Steam WebHelper.
+    /// </summary>
+    /// <param name="enable">Pass true to enable or false to disable the Steam WebHelper.</param>
+    /// <returns>If the operation was successful true is returned else false.</returns>
+    public static bool WebHelper(bool enable)
     {
         IntPtr
         hWnd = FindWindow("vguiPopupWindow", "SteamClient"),
         hThread = OpenThread(0x0002, false, GetWindowThreadProcessId(hWnd, out uint _));
+        if (hWnd == IntPtr.Zero)
+            return false;
         if (enable)
             ResumeThread(hThread);
         else
@@ -109,14 +153,23 @@ public class SteamClient
             processes[i].Dispose();
         }
         CloseHandle(hThread);
+        return true;
     }
 
-
-    public static void StartGameId(string gameId)
+    /// <summary>
+    /// Starts the specified App ID.
+    /// </summary>
+    /// <param name="gameId">App ID of the app to run.</param>
+    /// <returns>
+    /// If the operation was successful true is returned else false.
+    /// </returns>
+    public static bool StartGameId(string gameId)
     {
-        WebHelper(true);
+        if (FindWindow("vguiPopupWindow", "SteamClient") == IntPtr.Zero)
+            return false;
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\Valve\\Steam\\Apps\\{gameId}");
         IntPtr hEvent = CreateEvent(IntPtr.Zero, true, false, IntPtr.Zero);
+        WebHelper(true);
         Process.Start("explorer.exe", $"steam://rungameid/{gameId}").Close();
         RegNotifyChangeKeyValue(registryKey.Handle, true, 0x00000004, hEvent, true);
         WaitForSingleObject(hEvent, 0xffffffff);
@@ -124,5 +177,6 @@ public class SteamClient
         RegNotifyChangeKeyValue(registryKey.Handle, true, 0x00000004, hEvent, true);
         WaitForSingleObject(hEvent, 0xffffffff);
         CloseHandle(hEvent);
+        return true;
     }
 }
