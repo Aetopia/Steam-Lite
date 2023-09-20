@@ -70,19 +70,19 @@ public class MainForm : Form
             Activate();
         };
 
-        listView.SelectedIndexChanged += (sender, e) => button.Enabled = listView.SelectedItems.Count != 0;
+        listView.SelectedIndexChanged += (sender, e) => button.Enabled = listView.Enabled && listView.SelectedItems.Count != 0;
         listView.ItemActivate += (sender, e) => button.PerformClick();
-
+        //   button.Enabled = true;
         button.Click += (sender, e) => new Thread(() =>
         {
             if (listView.SelectedItems.Count != 0)
             {
-                string appName = listView.SelectedItems[0].Text;
+             //   string appName = listView.SelectedItems[0].Text;
                 WindowState = FormWindowState.Minimized;
                 listView.Enabled = false;
                 button.Enabled = false;
                 button.Text = "Running";
-                SteamClient.RunGameId(apps[appName]);
+                SteamClient.RunGameId(apps[listView.SelectedItems[0].Text]);
                 button.Text = "Play";
                 listView.Enabled = true;
                 button.Enabled = true;

@@ -52,6 +52,7 @@ public class SteamClient
     {
         if (GetWindowThreadProcessId(FindWindow("vguiPopupWindow", "SteamClient"), out uint dwProcessId) != 0)
             return Process.GetProcessById((int)dwProcessId);
+            
         return null;
     }
 
@@ -64,6 +65,7 @@ public class SteamClient
     public static Dictionary<string, string> GetApps()
     {
         Dictionary<string, string> apps = [];
+
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam\\Apps");
         if (registryKey != null)
         {
@@ -76,6 +78,7 @@ public class SteamClient
                     apps[subKey.GetValue("Name").ToString()] = subKeyNames[i];
             }
         }
+
         return apps;
     }
 
@@ -122,6 +125,7 @@ public class SteamClient
             using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam");
             Process.Start(registryKey.GetValue("SteamExe").ToString(), "-shutdown").Dispose();
         }
+
         return true;
     }
 
@@ -135,20 +139,21 @@ public class SteamClient
         IntPtr
         hWnd = FindWindow("vguiPopupWindow", "SteamClient"),
         hThread = OpenThread(0x0002, false, GetWindowThreadProcessId(hWnd, out uint _));
-        if (hWnd == IntPtr.Zero)
-            return false;
-        if (enable)
-            ResumeThread(hThread);
-        else
-            SuspendThread(hThread);
-        Process[] processes = Process.GetProcessesByName("steamwebhelper");
-        for (int i = 0; i < processes.Length; i++)
+
+        if (hWnd != IntPtr.Zero)
         {
-            processes[i].Kill();
-            processes[i].Dispose();
+            if (enable) ResumeThread(hThread);
+            else SuspendThread(hThread);
+            Process[] processes = Process.GetProcessesByName("steamwebhelper");
+            for (int i = 0; i < processes.Length; i++)
+            {
+                processes[i].Kill();
+                processes[i].Dispose();
+            }
         }
         CloseHandle(hThread);
-        return true;
+
+        return hWnd != IntPtr.Zero;
     }
 
     /// <summary>
@@ -162,16 +167,20 @@ public class SteamClient
     {
         if (FindWindow("vguiPopupWindow", "SteamClient") == IntPtr.Zero)
             return false;
+
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\Valve\\Steam\\Apps\\{gameId}");
         IntPtr hEvent = CreateEvent(IntPtr.Zero, true, false, IntPtr.Zero);
+
         WebHelper(true);
         Process.Start("explorer.exe", $"steam://rungameid/{gameId}").Close();
         RegNotifyChangeKeyValue(registryKey.Handle, true, 0x00000004, hEvent, true);
         WaitForSingleObject(hEvent, 0xffffffff);
         WebHelper(false);
+
         RegNotifyChangeKeyValue(registryKey.Handle, true, 0x00000004, hEvent, true);
         WaitForSingleObject(hEvent, 0xffffffff);
         CloseHandle(hEvent);
+
         return true;
     }
 
@@ -187,6 +196,7 @@ public class SteamClient
         using RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam");
         using RegistryKey subKey = registryKey.OpenSubKey("ActiveProcess");
         string[] lines = File.ReadAllLines($"{registryKey.GetValue("SteamPath")}/userdata/{subKey.GetValue("ActiveUser")}/config/localconfig.vdf");
+
         for (int i = 0; i < lines.Length; i++)
         {
             try
@@ -201,6 +211,7 @@ public class SteamClient
             catch (InvalidOperationException) { }
 
         }
+
         return userApps;
     }
 }
