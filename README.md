@@ -17,19 +17,19 @@ A minimal Steam Client frontend.
 
 ## Aim
 This project started with the intention of replacing the entire Steam Client frontend with something similar to the UI of the Steam Client with the CEF disabled.<br>
-Steam Lite provides a minimal GUI frontend with the ability to launch games.
+Steam Lite provides a minimal GUI frontend with the ability to launch apps.
 
 ### How does program work?
 This program wouldn't have been possible without [NoSteamWebHelper](https://github.com/Aetopia/NoSteamWebHelper).<br>
 Mainly due the fact without it suppressing the Steam WebHelper wouldn't have been possible.<br>
 > [!NOTE]
 > Steam must be running the background to do the following:<br>
-> 1. Allows any Steam DRM based games to be launched.
-> 2. Allows games to use any Steam related services.
+> 1. Allows any Steam DRM based apps to be launched.
+> 2. Allows apps to use any Steam related services.
 
 1. The program will attempt to invoke `SteamClient.Launch()` and initialize a new Steam Client instance, if an instance of the Steam Client is running, it will be discarded/shutdown.
 2. Once the new Steam Client instance is running, the Steam WebHelper is disabled to save on resources or to make the instance "minimal".
-3. To launch a game, the program calls `SteamClient.LaunchGameId(gameId)`, the method re-enables the Steam WebHelper, waits for the app to launch and then suspends the WebHelper again.
+3. To launch a apps, the program calls `SteamClient.RunGameId(string gameId)`, the method re-enables the Steam WebHelper, waits for the app to launch and then suspends the WebHelper again.
 > [!NOTE]
 > The frontend restricts the user to only launching a single app.<br>
 > Technically the `SteamClient` class, allows you to launch multiple apps but blocks the invoking thread until the app terminates.
@@ -39,13 +39,13 @@ That's a good question, I actually decided to avoid SteamCMD since:<br>
 - Considering what information is required by the `SteamClient` class using SteamCMD is not required.
 
 ### Features
-- Ability to launch Steam games with directly using a Steam Client instance.
+- Ability to launch Steam apps with directly using a Steam Client instance.
 - Ability to minimize to the tray.<br>
     > [!NOTE]
     > The program will always minimize to the tray if an app is launched.
 - Doesn't require the Steam WebHelper.<br>
     > [!NOTE]
-    > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.<br>
+    > The Steam Webhelper must be re-enabled briefly for invoking actions like launching an app.<br>
     > If you would like to implement your own methods to invoke specific Steam Client actions make sure to surround the method with `SteamClient.WebHelper(bool enable)`.<br>
     > ```cs
     > SteamClient.WebHelper(true);
