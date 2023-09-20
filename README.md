@@ -15,7 +15,7 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
 > The frontend restricts the user to only launching a single app.<br>
 > Technically the `SteamClient` class, allows you to launch multiple apps but blocks the invoking thread until the app terminates.
 
-### `SteamClient` class
+### [`SteamClient` class](https://github.com/Aetopia/Steam-Lite/blob/main/SteamClient.cs)
 The `SteamClient` provides methods for interacting with a Steam Client instance.
 
 #### Methods
