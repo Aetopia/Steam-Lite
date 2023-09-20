@@ -61,7 +61,6 @@ public class MainForm : Form
             notifyIcon.Visible = false;
             ShowInTaskbar = false;
             SteamClient.Shutdown();
-            //    Environment.Exit(0);
         };
 
         notifyIcon.DoubleClick += (sender, e) =>
