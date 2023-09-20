@@ -1,0 +1,31 @@
+using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+
+static class Program
+{
+  [STAThread]
+  static void Main(string[] args)
+  {
+    Process process = SteamClient.Launch();
+    bool silent = false;
+    for (int i = 0; i < args.Length; i++)
+    {
+      if (args[i] == "-silent" && !silent)
+        silent = true;
+    }
+
+    if (process != null)
+    {
+      new Thread(() =>
+      {
+        process.WaitForExit();
+        process.Dispose();
+        Environment.Exit(0);
+      });
+      Application.EnableVisualStyles();
+      Application.Run(new MainForm(silent));
+    }
+  }
+}
