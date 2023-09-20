@@ -25,10 +25,10 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
     > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.
     > If you would like to implement your own methods to invoke specific Steam Client actions make sure to surround the method with `SteamClient.WebHelper(bool enable)`.
     > ```cs
-    SteamClient.WebHelper(true);
-    YourMethod();
-    SteamClient.WebHelper(false);
-    ```
+    > SteamClient.WebHelper(true);
+    > YourMethod();
+    >SteamClient.WebHelper(false);
+    >```
 
 ### [`SteamClient` class](https://github.com/Aetopia/Steam-Lite/blob/main/SteamClient.cs)
 The `SteamClient` provides methods for interacting with a Steam Client instance.
