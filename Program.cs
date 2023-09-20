@@ -51,5 +51,9 @@ static class Program
       Application.EnableVisualStyles();
       Application.Run(new MainForm(silent));
     }
+    else
+    {
+      MessageBox.Show("Steam is either already running or isn't installed.", "Steam Lite", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
   }
 }
