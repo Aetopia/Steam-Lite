@@ -22,8 +22,8 @@ This program wouldn't have been possible without [NoSteamWebHelper](https://gith
     > The program will always minimize to the tray if a game is launched.
 - Doesn't require the Steam WebHelper.<br>
     > [!NOTE]
-    > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.
-    > If you would like to implement your own methods to invoke specific Steam Client actions make sure to surround the method with `SteamClient.WebHelper(bool enable)`.
+    > The Steam Webhelper must be re-enabled briefly for invoking actions like launching the game.<br>
+    > If you would like to implement your own methods to invoke specific Steam Client actions make sure to surround the method with `SteamClient.WebHelper(bool enable)`.<br>
     > ```cs
     > SteamClient.WebHelper(true);
     > YourMethod();
