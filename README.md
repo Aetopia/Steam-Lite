@@ -7,7 +7,7 @@ A minimal Steam Client frontend.
 > In the future, other platforms might be also supported if possible.<br>
 
 ## Usage
-1. Download the latest release from GitHub Releases.
+1. Download the latest release from [GitHub Releases](https://github.com/Aetopia/Steam-Lite/releases/latest).
 2. Start the program.
 3. To launch an app:<br>
     - Select an app from the list and click the `Play` button to launch it.
@@ -20,7 +20,8 @@ This project started with the intention of replacing the entire Steam Client fro
 Steam Lite provides a minimal GUI frontend with the ability to launch games.
 
 ### How does program work?
-This program wouldn't have been possible without [NoSteamWebHelper](https://github.com/Aetopia/NoSteamWebHelper).
+This program wouldn't have been possible without [NoSteamWebHelper](https://github.com/Aetopia/NoSteamWebHelper).<br>
+Mainly due the fact without it suppressing the Steam WebHelper wouldn't have been possible.<br>
 > [!NOTE]
 > Steam must be running the background to do the following:<br>
 > 1. Allows any Steam DRM based games to be launched.
